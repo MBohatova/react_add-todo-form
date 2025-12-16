@@ -1,13 +1,6 @@
 import React from 'react';
 import { User } from '../types';
 
-// interface ToDoUser {
-//   id: number;
-//   name: string;
-//   username: string;
-//   email: string;
-// }
-
 interface UserInfoProps {
   toDoUser: User;
 }

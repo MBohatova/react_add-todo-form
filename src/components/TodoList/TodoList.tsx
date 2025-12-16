@@ -1,4 +1,3 @@
-// import { User } from '../types';
 import { ToDo } from '../types';
 import { TodoInfo } from '../TodoInfo';
 

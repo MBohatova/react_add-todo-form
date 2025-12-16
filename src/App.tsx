@@ -1,25 +1,10 @@
 import './App.scss';
-// import { User } from './components/types';
 import { ToDo } from './components/types';
-// import './components/TodoList/TodoList';
 import React, { useState } from 'react';
 
 import usersFromServer from './api/users';
 import todosFromServer from './api/todos';
 import { TodoList } from './components/TodoList/TodoList';
-
-// interface ToDo {
-//   user: {
-//     id: number;
-//     name: string;
-//     username: string;
-//     email: string;
-//   } | null;
-//   id: number;
-//   title: string;
-//   completed: boolean;
-//   userId: number;
-// }
 
 function getUserById(userId: number) {
   return usersFromServer.find(user => user.id === userId) || null;
@@ -61,10 +46,9 @@ export const App = () => {
 
     if (isTitleEmpty === false && isUserNotChosen === false) {
       setTodos(prev => [...prev, newTodo]);
+      setTitle('');
+      setUser('0');
     }
-
-    setTitle('');
-    setUser('0');
   };
 
   return (
