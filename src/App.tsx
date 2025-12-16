@@ -1,23 +1,25 @@
 import './App.scss';
-import './components/TodoList/TodoList';
+// import { User } from './components/types';
+import { ToDo } from './components/types';
+// import './components/TodoList/TodoList';
 import React, { useState } from 'react';
 
 import usersFromServer from './api/users';
 import todosFromServer from './api/todos';
 import { TodoList } from './components/TodoList/TodoList';
 
-interface ToDo {
-  user: {
-    id: number;
-    name: string;
-    username: string;
-    email: string;
-  } | null;
-  id: number;
-  title: string;
-  completed: boolean;
-  userId: number;
-}
+// interface ToDo {
+//   user: {
+//     id: number;
+//     name: string;
+//     username: string;
+//     email: string;
+//   } | null;
+//   id: number;
+//   title: string;
+//   completed: boolean;
+//   userId: number;
+// }
 
 function getUserById(userId: number) {
   return usersFromServer.find(user => user.id === userId) || null;
@@ -47,15 +49,19 @@ export const App = () => {
     setTitleError(isTitleEmpty);
     setUserError(isUserNotChosen);
 
+    const ids = todos.map(elem => elem.id);
+
     const newTodo: ToDo = {
-      id: todos.length + 1,
+      id: Math.max(...ids) + 1,
       title: trimmed,
       completed: false,
       userId: Number(choosenUser),
       user: getUserById(Number(choosenUser)),
     };
 
-    setTodos(prev => [...prev, newTodo]);
+    if (isTitleEmpty === false && isUserNotChosen === false) {
+      setTodos(prev => [...prev, newTodo]);
+    }
 
     setTitle('');
     setUser('0');
@@ -94,7 +100,11 @@ export const App = () => {
               Choose a user
             </option>
             {usersFromServer.map(user => {
-              return <option key={user.id}>{user.name}</option>;
+              return (
+                <option value={user.id} key={user.id}>
+                  {user.name}
+                </option>
+              );
             })}
           </select>
 
